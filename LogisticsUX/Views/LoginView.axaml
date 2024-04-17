@@ -1,0 +1,28 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:LogisticsUX.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="LogisticsUX.Views.LoginView"
+             x:DataType="vm:LoginViewModel">
+    <StackPanel HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Width="300"
+                Height="200"
+                Background="Indigo">
+        <TextBox Margin="5,5,5,20"
+                 Text="{Binding Username}"
+                 Watermark="Username"
+                 BorderBrush="{Binding UserBorder}"/>
+        <TextBox Margin="5,5,5,20"
+                 Text="{Binding Password}"
+                 Watermark="Password"
+                 BorderBrush="{Binding PasswordBorder}"
+                 PasswordChar="*"/>
+        <Button Content="Login"
+                HorizontalAlignment="Center"
+                Command="{Binding Login}"
+                IsDefault="True"/>
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,175 @@
+create table Companies(
+                        Id integer 
+                            PRIMARY KEY 
+                            AUTO_INCREMENT,
+                        Name varchar(30),
+                        Address varchar(50)
+);
+create table Stations(
+                        Id integer 
+                            PRIMARY KEY 
+                            UNIQUE,
+                        Name varchar(4),
+                        Address varchar(50)
+);
+create table Drivers(
+                        Id integer 
+                            PRIMARY KEY 
+                            AUTO_INCREMENT,
+                        LName varchar(15),
+                        FName varchar(15),
+                        CompanyId integer,
+                        LocationId integer,
+                        Status enum(
+                            'Active',
+                            'Inactive'),
+                        FOREIGN KEY (CompanyId) 
+                            REFERENCES Companies(Id) 
+                            ON DELETE SET NULL,
+                        FOREIGN KEY (LocationId) 
+                            REFERENCES Stations(Id) 
+                            ON DELETE SET NULL
+);
+
+create table Trucks(
+                        Id integer 
+                            PRIMARY KEY 
+                            AUTO_INCREMENT,
+                        DriverId integer,
+                        CompanyId integer,
+                        StationId integer,
+                        Status enum(
+                           'Active',
+                           'Inactive',
+                           'Enroute'),
+                        FOREIGN KEY (DriverId) 
+                            REFERENCES Drivers(Id) 
+                            ON DELETE SET NULL,
+                        FOREIGN KEY (CompanyId) 
+                            REFERENCES Companies(Id) 
+                            ON DELETE SET NULL,
+                        FOREIGN KEY (StationId) 
+                            REFERENCES Stations(Id)
+);
+create table DispatchRecords(
+                        Id integer 
+                            PRIMARY KEY 
+                            AUTO_INCREMENT,
+                        OriginStationId integer,
+                        DestinationStationId integer,
+                        Mileage float,
+                        EstArrival datetime,
+                        Departure datetime,
+                        Status enum(
+                            'Unassigned',
+                            'Ready',
+                            'Enroute',
+                            'Arrived'),
+                        FOREIGN KEY (OriginStationId) 
+                            REFERENCES Stations(Id) 
+                            ON DELETE NO ACTION,
+                        FOREIGN KEY (DestinationStationId) 
+                            REFERENCES Stations(Id) 
+                            ON DELETE NO ACTION
+);
+create table Trailers(
+                        Id integer 
+                            PRIMARY KEY 
+                            AUTO_INCREMENT,
+                        StationId integer,
+                        DispatchRecordId integer,
+                        DoorId integer,
+                        Status enum(
+                            'MT',
+                            'Loading',
+                            'Closed',
+                            'Enroute',
+                            'Unloading',
+                            'Inactive'
+                            ),
+                        FOREIGN KEY (StationId) 
+                            REFERENCES Stations(Id) 
+                            ON DELETE SET NULL,
+                        FOREIGN KEY (DispatchRecordId) 
+                            REFERENCES DispatchRecords(Id) 
+                            ON DELETE SET NULL
+);
+create table Customers(
+                        Id integer 
+                            PRIMARY KEY 
+                            AUTO_INCREMENT,
+                        LName varchar(15),
+                        FName varchar(15),
+                        Address varchar(50),
+                        Phone varchar(15)
+);
+create table Parcels(
+                        Id integer 
+                            PRIMARY KEY 
+                            AUTO_INCREMENT,
+                        Weight float,
+                        SenderCustomerId integer,
+                        RecipientCustomerId integer,
+                        OriginStationId integer,
+                        DestinationStationId integer,
+                        WaypointStationId integer,
+                        TrailerId integer,
+                        Status enum(
+                            'LabelCreated',
+                            'Received',
+                            'LoadedAtOrigin',
+                            'Enroute',
+                            'AtWaypoint',
+                            'AtFinalLocation',
+                            'OutForDelivery',
+                            'Delivered',
+                            'DeliveryConfirmed',
+                            'DeliveryFailed',
+                            'DeliveryDenied'
+                            ),
+                        NeedSignature boolean,
+                        FOREIGN KEY (SenderCustomerId) 
+                            REFERENCES Customers(Id) 
+                            ON DELETE NO ACTION,
+                        FOREIGN KEY (RecipientCustomerId) 
+                            REFERENCES Customers(Id) 
+                            ON DELETE NO ACTION,
+                        FOREIGN KEY (OriginStationId) 
+                            REFERENCES Stations(Id) 
+                            ON DELETE SET NULL,
+                        FOREIGN KEY (DestinationStationId) 
+                            REFERENCES Stations(Id) 
+                            ON DELETE SET NULL ,
+                        FOREIGN KEY (WaypointStationId) 
+                            REFERENCES Stations(Id) 
+                            ON DELETE SET NULL ,
+                        FOREIGN KEY (TrailerId) 
+                            REFERENCES Trailers(Id) 
+                            ON DELETE SET NULL
+);
+create table Doors(
+                        Id integer 
+                            PRIMARY KEY 
+                            AUTO_INCREMENT,
+                        StationId integer,
+                        DoorType enum(
+                            'Loading',
+                            'Unloading'
+                            ),
+                        TrailerId integer,
+                        Available boolean,
+                        FOREIGN KEY (StationId) 
+                            REFERENCES Stations(Id) 
+                            ON DELETE CASCADE,
+                        FOREIGN KEY (TrailerId) 
+                            REFERENCES Trailers(Id) 
+                            ON DELETE SET NULL
+);
+
+create index IndexTruckCompany on Trucks (CompanyId);
+create index IndexDriverCompany on Drivers (CompanyId);
+create index IndexDoorStation on Doors (StationId);
+create index IndexOutboundDispatchRecord on DispatchRecords (OriginStationId);
+create index IndexInboundDispatchRecord on DispatchRecords (DestinationStationId);
+create index IndexParcelTrailer on Parcels (TrailerId);
+create index IndexParcelCustomer on Parcels (SenderCustomerId, RecipientCustomerId);
