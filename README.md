@@ -14,3 +14,6 @@ If you would like to install and play with this, you will need to do a few thing
 Once i approach a more finished state, i will add some scripts to automatically create test data and a single user for people to test the system out.
 
 Thanks for checking out my project! Ive learned lots of new stuff and I'm excited to finally be dipping my toes in putting projects on the internet attached to my name. If you want to get in touch for any reason, my Twitter is linked in my Github profile! :)
+
+
+PS. This project is nowhere near finished and will undergo lots of changes as i learn and grow. If you spot anything you want to give advice on i would be happy to listen
