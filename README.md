@@ -5,7 +5,7 @@ If you would like to install and play with this, you will need to do a few thing
 
 1: Create a database using the databaseschema.txt, this file needs updated as some things have been added since via dbeaver and the original schema is incomplete; dont worry its on the todo list
 
-2: use the database test seeder to fill to generate fake entities to use. This system also needs updates amd documentation.
+2: use the database test seeder to fill the database with fake test entities. This system also needs updates amd documentation.
 
 3: create a user to log in to the system. The Users table is one table i have locally on my machine that is not updated in the schema.
 
