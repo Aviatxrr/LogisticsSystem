@@ -1,7 +1,9 @@
 using Bogus;
-using Bogus.DataSets;
+using DispatchRecordSystem;
+using DispatchRecordSystem.Models;
 using Org.BouncyCastle.Asn1.Cmp;
 using Org.BouncyCastle.Asn1.X509.Qualified;
+using Company = Bogus.DataSets.Company;
 
 namespace DispatchRecordSystem;
 
@@ -12,8 +14,8 @@ public class DatabaseTestSeeder
     {
         Faker faker = new Faker();
         T entity = new T();
-        Repository<Company> cr = new Repository<Company>(new LogisticsDbContext());
-        IEnumerable<Company> cl = new List<Company>();
+        Repository<Models.Company> cr = new Repository<Models.Company>(new LogisticsDbContext());
+        IEnumerable<Models.Company> cl = new List<Models.Company>();
         Repository<Station> sr = new Repository<Station>(new LogisticsDbContext());
         IEnumerable<Station> sl = new List<Station>();
         Repository<Driver> dr = new Repository<Driver>(new LogisticsDbContext());
@@ -32,7 +34,7 @@ public class DatabaseTestSeeder
                     property.SetValue(entity, faker.Name.FirstName());
                     break;
                 case "Name":
-                    if (typeof(T) == typeof(Company))
+                    if (typeof(T) == typeof(Models.Company))
                     {
                         property.SetValue(entity, faker.Company.CompanyName());
                     }
