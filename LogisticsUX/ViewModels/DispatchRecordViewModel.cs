@@ -57,7 +57,6 @@ public class DispatchRecordViewModel : ViewModelBase
 
     public void OnSelectionChanged(DispatchRecord.DispatchStatus status)
     {
-        Console.WriteLine("Updating status");
         DispatchRecord.Status = status;
         App.AppHost!.Services
             .GetRequiredService<Repository<DispatchRecord>>()
@@ -66,7 +65,6 @@ public class DispatchRecordViewModel : ViewModelBase
 
     public void OnViewEntityInfoClick(IEntity entity)
     {
-        Console.WriteLine("Hi");
         App.AppHost.Services
             .GetRequiredService<SessionContainer>()
             .SelectedEntity = entity;
