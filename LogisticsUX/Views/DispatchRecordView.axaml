@@ -3,7 +3,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:LogisticsUX.ViewModels"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" 
+             d:DesignWidth="500" 
+             d:DesignHeight="600"
              x:Class="LogisticsUX.Views.DispatchRecordView"
              x:DataType="vm:DispatchRecordViewModel">
     <Grid ShowGridLines="True">
@@ -38,7 +40,6 @@
             <ComboBox Margin="4"
                        ItemsSource="{Binding StatusList}"
                        SelectedItem="{Binding Status}"
-                       
                        HorizontalAlignment="Center"/>
         </StackPanel>
         <StackPanel Grid.Row="2"
@@ -46,18 +47,28 @@
             <TextBlock Margin="4"
                        Text="Origin:"
                        HorizontalAlignment="Center"/>
-            <TextBlock Margin="4"
+            <TextBox Margin="4"
                        Text="{Binding DispatchRecord.Origin.Id}"
                        HorizontalAlignment="Center"/>
+            <Button HorizontalAlignment="Center"
+                    Margin="4"
+                    Content="View Info"
+                    Command="{Binding OnViewEntityInfoClick}"
+                    CommandParameter="{Binding DispatchRecord.Origin}"/>
         </StackPanel>
         <StackPanel Grid.Row="2"
                     Grid.Column="1">
             <TextBlock Margin="4"
                        Text="Destination:"
                        HorizontalAlignment="Center"/>
-            <TextBlock Margin="4"
+            <TextBox Margin="4"
                        Text="{Binding DispatchRecord.Destination.Id}"
                        HorizontalAlignment="Center"/>
+            <Button HorizontalAlignment="Center"
+                    Margin="4"
+                    Content="View Info"
+                    Command="{Binding OnViewEntityInfoClick}"
+                    CommandParameter="{Binding DispatchRecord.Destination}"/>
         </StackPanel>
         <StackPanel Grid.Row="2"
                     Grid.Column="2">
@@ -73,27 +84,42 @@
             <TextBlock Margin="4"
                        Text="Trailer 1:"
                        HorizontalAlignment="Center"/>
-            <TextBlock Margin="4"
+            <TextBox Margin="4"
                        Text="{Binding DispatchRecord.Trailers[0].Id}"
                        HorizontalAlignment="Center"/>
+            <Button HorizontalAlignment="Center"
+                    Margin="4"
+                    Content="View Info"
+                    Command="{Binding OnViewEntityInfoClick}"
+                    CommandParameter="{Binding DispatchRecord.Trailers[0]}"/>
         </StackPanel>
         <StackPanel Grid.Row="3"
                     Grid.Column="1">
             <TextBlock Margin="4"
                        Text="Trailer 2:"
                        HorizontalAlignment="Center"/>
-            <TextBlock Margin="4"
+            <TextBox Margin="4"
                        Text="{Binding DispatchRecord.Trailers[1].Id}"
                        HorizontalAlignment="Center"/>
+            <Button HorizontalAlignment="Center"
+                    Margin="4"
+                    Content="View Info"
+                    Command="{Binding OnViewEntityInfoClick}"
+                    CommandParameter="{Binding DispatchRecord.Trailers[1]}"/>
         </StackPanel>
         <StackPanel Grid.Row="3"
                     Grid.Column="2">
             <TextBlock Margin="4"
                        Text="Truck:"
                        HorizontalAlignment="Center"/>
-            <TextBlock Margin="4"
+            <TextBox Margin="4"
                        Text="{Binding DispatchRecord.AssignedTruck.Id}"
                        HorizontalAlignment="Center"/>
+            <Button HorizontalAlignment="Center"
+                    Margin="4"
+                    Content="View Info"
+                    Command="{Binding OnViewEntityInfoClick}"
+                    CommandParameter="{Binding DispatchRecord.AssignedTruck}"/>
         </StackPanel>
         <StackPanel Grid.Row="4"
                     Grid.Column="0">

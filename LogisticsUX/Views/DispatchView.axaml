@@ -30,7 +30,8 @@
         <DataGrid Grid.Row="1"
                   Grid.Column="0"
                   ItemsSource="{Binding InboundDispatch}"
-                  IsReadOnly="True">
+                  IsReadOnly="True"
+                  SelectedItem="{Binding SelectedEntity}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id"
                                     Binding="{Binding Id}"/>

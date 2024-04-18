@@ -1,25 +1,34 @@
 using System;
 using DispatchRecordSystem;
+using LogisticsUX.ViewModels;
 
 namespace LogisticsUX;
 
 public class SessionContainer
 {
-    public delegate void EntitySelectionEventHandler(IEntity entity);
+    public delegate void ViewModelSelectionEventHandler(ViewModelBase entity);
     
-    public event EntitySelectionEventHandler SelectionChanged;
+    public event ViewModelSelectionEventHandler SelectionChanged;
     public User currentUser { get; set; }
 
-    private IEntity _entityViewEntity;
-    public IEntity EntityViewEntity
+    private ViewModelBase _infoView;
+    public ViewModelBase InfoView
     {
-        get => _entityViewEntity;
+        get => _infoView;
         set
         {
-            _entityViewEntity = value;
-            SelectionChanged?.Invoke(_entityViewEntity); 
+            _infoView = value;
+            SelectionChanged?.Invoke(_infoView); 
         }
     }
-    
-    
+
+    private IEntity _selectedEntity;
+
+    public IEntity SelectedEntity
+    {
+        get => _selectedEntity;
+        set => _selectedEntity = value;
+    }
+
+
 }

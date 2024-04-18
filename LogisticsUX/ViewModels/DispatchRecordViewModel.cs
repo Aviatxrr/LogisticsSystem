@@ -36,19 +36,23 @@ public class DispatchRecordViewModel : ViewModelBase
         set => this.RaiseAndSetIfChanged(ref _statusList, value);
     }
 
-    public ReactiveCommand<DispatchRecord.DispatchStatus, Unit> SelectionChnaged;
+    public ReactiveCommand<DispatchRecord.DispatchStatus, Unit> SelectionChanged;
+
+    //public ReactiveCommand<IEntity, Unit> ViewEntityInfo;
 
     public DispatchRecordViewModel()
     {
-            DispatchRecord = App.AppHost.Services
-                .GetRequiredService<SessionContainer>()
-                .EntityViewEntity as DispatchRecord;
+        DispatchRecord = App.AppHost.Services
+            .GetRequiredService<SessionContainer>()
+            .SelectedEntity as DispatchRecord;
             StatusList = new ObservableCollection<DispatchRecord.DispatchStatus>(
                 Enum.GetValues(typeof(DispatchRecord.DispatchStatus)) as IEnumerable<DispatchRecord.DispatchStatus>);
             Status = DispatchRecord.Status;
-            SelectionChnaged = ReactiveCommand.Create<DispatchRecord.DispatchStatus>(OnSelectionChanged);
+            SelectionChanged = ReactiveCommand.Create<DispatchRecord.DispatchStatus>(OnSelectionChanged);
             this.WhenAnyValue(x => x.Status)
-                .InvokeCommand(SelectionChnaged);
+                .InvokeCommand(SelectionChanged);
+            //ViewEntityInfo = ReactiveCommand.Create<IEntity>(OnViewEntityInfoClick);
+
     }
 
     public void OnSelectionChanged(DispatchRecord.DispatchStatus status)
@@ -58,6 +62,17 @@ public class DispatchRecordViewModel : ViewModelBase
         App.AppHost!.Services
             .GetRequiredService<Repository<DispatchRecord>>()
             .Update(DispatchRecord);
+    }
+
+    public void OnViewEntityInfoClick(IEntity entity)
+    {
+        Console.WriteLine("Hi");
+        App.AppHost.Services
+            .GetRequiredService<SessionContainer>()
+            .SelectedEntity = entity;
+        App.AppHost.Services
+            .GetRequiredService<SessionContainer>()
+            .InfoView = GetViewModelForEntity(entity);
     }
     
 }

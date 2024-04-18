@@ -1,6 +1,8 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
+using Castle.DynamicProxy;
 using DispatchRecordSystem;
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
@@ -27,7 +29,11 @@ public class DispatchViewModel : ViewModelBase
             this.RaiseAndSetIfChanged(ref _selectedEntity, value);
             App.AppHost!.Services
                 .GetRequiredService<SessionContainer>()
-                .EntityViewEntity = value;
+                .SelectedEntity = value;
+            App.AppHost!.Services
+                .GetRequiredService<SessionContainer>()
+                .InfoView = GetViewModelForEntity(value);
+            
         }
     }
     
@@ -49,5 +55,6 @@ public class DispatchViewModel : ViewModelBase
         
     }
 
+    
     
 }

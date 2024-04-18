@@ -52,7 +52,7 @@ public class LogisticsDbContext : DbContext
                                                  "/Projects" +
                                                  "/PortfolioProjects" +
                                                  "/TruckerStuff" +
-                                                 "/DispatchRecordSystem" +
+                                                 "/LogisticsSystem" +
                                                  "/DispatchRecordSystem" +
                                                  "/ConnectionString.user"))
         {

@@ -33,12 +33,9 @@ public class HomeViewModel : ViewModelBase
             .SelectionChanged += SetEntityView;
     }
 
-    public void SetEntityView(IEntity entity)
+    public void SetEntityView(ViewModelBase viewModel)
     {
-        string viewModelName = $"LogisticsUX.ViewModels.{ProxyUtil.GetUnproxiedType(entity).Name}ViewModel";
-        string viewModelAssembly = $"{Assembly.GetAssembly(GetType())}";
-        Type viewModelType = Type.GetType($"{viewModelName}, {viewModelAssembly}")!;
-        EntityView = Activator.CreateInstance(viewModelType) as ViewModelBase;
+        EntityView = viewModel;
     }
     
 }
