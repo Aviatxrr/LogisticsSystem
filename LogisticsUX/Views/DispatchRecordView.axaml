@@ -31,7 +31,6 @@
                        Text="{Binding DispatchRecord.Id}"
                        HorizontalAlignment="Center"/>
         </StackPanel>
-        <!-- this one should be a drop down -->
         <StackPanel Grid.Row="1"
                     Grid.Column="2">
             <TextBlock Margin="4"
@@ -113,7 +112,8 @@
                        Text="Truck:"
                        HorizontalAlignment="Center"/>
             <TextBox Margin="4"
-                       Text="{Binding DispatchRecord.AssignedTruck.Id}"
+                       Text="{Binding DispatchRecord.AssignedTruck.Id,
+                       Mode=TwoWay}"
                        HorizontalAlignment="Center"/>
             <Button HorizontalAlignment="Center"
                     Margin="4"

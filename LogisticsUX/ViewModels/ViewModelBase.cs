@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Reflection;
 using Castle.DynamicProxy;
 using DispatchRecordSystem;

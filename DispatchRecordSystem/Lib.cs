@@ -1,4 +1,7 @@
-﻿namespace DispatchRecordSystem;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+
+namespace DispatchRecordSystem;
 
 public interface IEntity
 {
@@ -163,6 +166,7 @@ public class Truck : IEntity, ILocatable, IHaveCompany
         Inactive,
         Enroute,
     }
+    
 
 }
 
