@@ -1,3 +1,5 @@
+using DispatchRecordSystem.Models;
+
 namespace DispatchRecordSystem;
 
 public interface ISpecification<T>

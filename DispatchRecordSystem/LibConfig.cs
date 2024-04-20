@@ -1,4 +1,5 @@
 using System.Collections.Immutable;
+using DispatchRecordSystem.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;

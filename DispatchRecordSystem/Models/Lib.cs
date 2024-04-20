@@ -1,7 +1,4 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-
-namespace DispatchRecordSystem;
+﻿namespace DispatchRecordSystem.Models;
 
 public interface IEntity
 {

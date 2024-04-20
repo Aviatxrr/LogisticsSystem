@@ -1,5 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
+using DispatchRecordSystem;
+using DispatchRecordSystem.Models;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace DispatchRecordSystem;
