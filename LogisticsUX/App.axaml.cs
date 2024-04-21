@@ -8,6 +8,8 @@ using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using DispatchRecordSystem;
+using DispatchRecordSystem.Models;
+using DispatchRecordSystem.Services;
 using LogisticsUX.ViewModels;
 using LogisticsUX.Views;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,13 +26,30 @@ public partial class App : Application
         AppHost = Host.CreateDefaultBuilder()
             .ConfigureServices((context, services) =>
             {
-                foreach (var type in GetTypes("LogisticsUX.ViewModels"))
+                //add the DBContext
+                services.AddSingleton<LogisticsDbContext>();
+                foreach (var type in GetTypes("LogisticsUX.ViewModels",Assembly.GetExecutingAssembly()))
                 {
+                    //add each of the viewmodels as a singleton
                     services.AddSingleton(type);
                 }
-                foreach (var type in GetTypes("LogisticsUX.Views"))
+                foreach (var type in GetTypes("LogisticsUX.Views",Assembly.GetExecutingAssembly()))
                 {
+                    //add each of the views as well
+                    Console.WriteLine(type);
                     services.AddSingleton(type);
+                }
+                foreach (var model in GetTypes("DispatchRecordSystem.Models", Assembly.Load("DispatchRecordSystem")))
+                {
+                    //add a DB repository for each type of model in the above
+                    Console.WriteLine(model);
+                    services.AddSingleton(typeof(Repository<>).MakeGenericType(model));
+                }
+
+                foreach (var service in GetTypes("DispatchRecordSystem.Services", Assembly.Load("DispatchRecordSystem")))
+                {
+                    Console.WriteLine(service);
+                    services.AddSingleton(service);
                 }
             })
             .Build();
@@ -43,6 +62,7 @@ public partial class App : Application
             desktop.ShutdownRequested += Shutdown;
             var mainWindow = AppHost.Services.GetRequiredService<MainWindow>();
             mainWindow.DataContext = AppHost.Services.GetRequiredService<MainWindowViewModel>();
+            TruckService trucks = AppHost.Services.GetRequiredService<TruckService>();
             desktop.MainWindow = mainWindow;
             desktop.MainWindow.Show();
         }
@@ -56,12 +76,11 @@ public partial class App : Application
         AppHost.Dispose();
     }
 
-    public IEnumerable<Type> GetTypes(string namespaceName)
+    public IEnumerable<Type> GetTypes(string namespaceName, Assembly assembly)
     {
-        Assembly assembly = Assembly.GetExecutingAssembly();
 
         var types = assembly.GetTypes()
-            .Where(t => t.Namespace == namespaceName);
+            .Where(t => t.Namespace == namespaceName && t.IsClass);
 
         return types;
     }

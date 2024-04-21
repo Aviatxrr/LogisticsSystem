@@ -4,7 +4,7 @@ using DispatchRecordSystem;
 using DispatchRecordSystem.Models;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
-namespace DispatchRecordSystem;
+namespace DispatchRecordSystem.Services;
 public class TruckService(
     Repository<Truck> trucks,
     Repository<DispatchRecord> dispatchRecords
