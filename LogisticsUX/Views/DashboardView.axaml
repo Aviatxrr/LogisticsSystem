@@ -1,0 +1,89 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:LogisticsUX.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="LogisticsUX.Views.DashboardView"
+             x:DataType="vm:DashboardViewModel">
+    <Grid ShowGridLines="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="40"/>
+            <ColumnDefinition Width=".75*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Column="0"
+                    Grid.Row="0"
+                    Orientation="Horizontal"
+                    Margin="5">
+            <TextBlock Text="Station: "
+                       FontSize="20"/>
+            <ComboBox VerticalAlignment="Center"
+                      ItemsSource="{Binding StationIds}"
+                      SelectedItem="{Binding SelectedStation}"/>
+        </StackPanel>
+        <Grid Grid.Column="0"
+              Grid.Row="1"
+              ShowGridLines="True">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="0"
+                       Grid.Row="0"
+                       Text="Inbound"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="2"
+                       Grid.Row="0"
+                       Text="Outbound"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+                <DataGrid Grid.Row="1"
+                          Grid.Column="0" ItemsSource="{Binding Inbound}"
+                          IsReadOnly="True"
+                          SelectionMode="Single"
+                          Margin="5">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID"
+                                            Binding="{Binding Id}"/>
+                        <DataGridTextColumn Header="Origin"
+                                            Binding="{Binding OriginId}"/>
+                        <DataGridTextColumn Header="Truck"
+                                            Binding="{Binding TruckId}"/>
+                        <DataGridTextColumn Header="Status"
+                                            Binding="{Binding Status}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <DataGrid Grid.Row="1"
+                          Grid.Column="2" 
+                          ItemsSource="{Binding Outbound}"
+                          IsReadOnly="True"
+                          SelectionMode="Single"
+                          Margin="5"
+                          Name="Outbound">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID"
+                                            Binding="{Binding Id}"/>
+                        <DataGridTextColumn Header="Destination"
+                                            Binding="{Binding DestinationId}"/>
+                        <DataGridTextColumn Header="Truck"
+                                            Binding="{Binding TruckId}"/>
+                        <DataGridTextColumn Header="Status"
+                                            Binding="{Binding Status}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+        </Grid>
+    </Grid>
+</UserControl>

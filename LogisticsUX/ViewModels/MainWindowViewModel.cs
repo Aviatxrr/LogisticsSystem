@@ -1,8 +1,14 @@
-﻿namespace LogisticsUX.ViewModels;
+﻿using Microsoft.Extensions.DependencyInjection;
+using ReactiveUI;
+
+namespace LogisticsUX.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {
-#pragma warning disable CA1822 // Mark members as static
-    public string Greeting => "Welcome to Avalonia!";
-#pragma warning restore CA1822 // Mark members as static
+    public ViewModelBase DashboardVM { get; }
+
+    public MainWindowViewModel()
+    {
+        DashboardVM = App.AppHost.Services.GetRequiredService<DashboardViewModel>();
+    }
 }

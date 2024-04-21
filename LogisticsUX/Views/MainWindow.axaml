@@ -7,7 +7,9 @@
         x:Class="LogisticsUX.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
-        Title="LogisticsUX">
+        Title="LogisticsUX"
+        MinWidth="1915"
+        MinHeight="500">
 
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
@@ -15,6 +17,12 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <TabControl>
+        <TabItem Margin="5"
+                 Header="Dashboard">
+            <ContentControl Content="{Binding DashboardVM}"
+                            Margin="5"/>
+        </TabItem>
+    </TabControl>
 
 </Window>
