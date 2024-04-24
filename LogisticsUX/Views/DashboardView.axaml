@@ -27,9 +27,13 @@
                       ItemsSource="{Binding StationIds}"
                       SelectedItem="{Binding SelectedStation}"/>
         </StackPanel>
+        <ContentControl Grid.Column="2"
+                        Grid.Row="1"
+                        Margin="5"
+                        Content="{Binding InfoView}"/>
         <Grid Grid.Column="0"
               Grid.Row="1"
-              ShowGridLines="True">
+              ShowGridLines="False">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="20"/>
@@ -54,6 +58,7 @@
                           Grid.Column="0" ItemsSource="{Binding Inbound}"
                           IsReadOnly="True"
                           SelectionMode="Single"
+                          SelectedItem="{Binding SelectedEntity}"
                           Margin="5">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="ID"
@@ -71,6 +76,7 @@
                           ItemsSource="{Binding Outbound}"
                           IsReadOnly="True"
                           SelectionMode="Single"
+                          SelectedItem="{Binding SelectedEntity}"
                           Margin="5"
                           Name="Outbound">
                     <DataGrid.Columns>
@@ -85,5 +91,6 @@
                     </DataGrid.Columns>
                 </DataGrid>
         </Grid>
+        
     </Grid>
 </UserControl>

@@ -14,6 +14,7 @@ using LogisticsUX.ViewModels;
 using LogisticsUX.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Runtime.CompilerServices;
 namespace LogisticsUX;
 
 public partial class App : Application
@@ -31,6 +32,7 @@ public partial class App : Application
                 foreach (var type in GetTypes("LogisticsUX.ViewModels",Assembly.GetExecutingAssembly()))
                 {
                     //add each of the viewmodels as a singleton
+                    Console.WriteLine(type);
                     services.AddSingleton(type);
                 }
                 foreach (var type in GetTypes("LogisticsUX.Views",Assembly.GetExecutingAssembly()))
@@ -45,7 +47,6 @@ public partial class App : Application
                     Console.WriteLine(model);
                     services.AddSingleton(typeof(Repository<>).MakeGenericType(model));
                 }
-
                 foreach (var service in GetTypes("DispatchRecordSystem.Services", Assembly.Load("DispatchRecordSystem")))
                 {
                     Console.WriteLine(service);
@@ -53,6 +54,7 @@ public partial class App : Application
                 }
             })
             .Build();
+        
     }
 
     public override void OnFrameworkInitializationCompleted()
@@ -80,7 +82,10 @@ public partial class App : Application
     {
 
         var types = assembly.GetTypes()
-            .Where(t => t.Namespace == namespaceName && t.IsClass);
+            .Where(t => t.Namespace == namespaceName
+                        && t.IsClass
+                        && !t.IsNested
+            );
 
         return types;
     }

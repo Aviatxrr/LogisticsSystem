@@ -67,7 +67,6 @@ namespace DispatchRecordSystem;
         }
 
     }
-
     public class Repository<T> : IQueryable<T>, IRepository<T> where T : class, IEntity
     {
         private readonly LogisticsDbContext _context;

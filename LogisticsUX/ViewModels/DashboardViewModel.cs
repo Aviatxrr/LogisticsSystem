@@ -9,11 +9,13 @@ using ReactiveUI;
 
 namespace LogisticsUX.ViewModels;
 
+
 public class DashboardViewModel : ViewModelBase
 {
 
     private IServiceProvider _serviceProvider = App.AppHost.Services;
     private ViewModelBase _infoView;
+    private static ViewModelFactory _viewModelFactory;
 
     public ViewModelBase InfoView
     {
@@ -26,7 +28,11 @@ public class DashboardViewModel : ViewModelBase
     public IEntity SelectedEntity
     {
         get => _selectedEntity;
-        set => this.RaiseAndSetIfChanged(ref _selectedEntity, value);
+        set
+        {
+            this.RaiseAndSetIfChanged(ref _selectedEntity, value);
+            InfoView = _viewModelFactory.GetViewModel(_selectedEntity);
+        }
     }
 
     private ObservableCollection<DispatchRecord> _inbound;
@@ -63,6 +69,7 @@ public class DashboardViewModel : ViewModelBase
         StationIds = new ObservableCollection<int>(_serviceProvider
             .GetRequiredService<Repository<Station>>()
             .Select(s => s.Id));
+        _viewModelFactory = new ViewModelFactory();
     }
 
     private void updateTripList(int stationId)
