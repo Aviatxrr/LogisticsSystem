@@ -15,9 +15,11 @@ public class ViewModelFactory
         
         switch (entity)
         {
-            case DispatchRecord:
-                var vm = new DispatchRecordViewModel();
-                vm.Entity = entity;
+            case DispatchRecord record:
+                var vm = new DispatchRecordViewModel
+                {
+                    Entity = record
+                };
                 return vm;
         }
 

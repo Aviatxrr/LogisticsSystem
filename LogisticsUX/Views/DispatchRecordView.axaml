@@ -3,10 +3,47 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:LogisticsUX.ViewModels"
+             xmlns:bh="clr-namespace:CustomBehaviors"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="LogisticsUX.Views.DispatchRecordView"
              x:DataType="vm:DispatchRecordViewModel"
+             
              >
     
-    <TextBlock Text="{Binding Entity.Id}"/>
+    <Grid ShowGridLines="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Column="0"
+                    Grid.Row="0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Spacing="5">
+            <TextBlock Text="Record ID:"
+                       HorizontalAlignment="Center"/>
+            <TextBlock Text="{Binding Entity.Id}"
+                       HorizontalAlignment="Center"/>
+        </StackPanel>
+        <StackPanel Grid.Column="2"
+                    Grid.Row="0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Spacing="5">
+            <TextBlock Text="Truck:"
+                       HorizontalAlignment="Center"/>
+            <TextBox HorizontalAlignment="Center">
+                <Interaction.Behaviors>
+                    <bh:EnterPressedBindingBehavior Text="{Binding TruckId}" />
+                </Interaction.Behaviors>
+            </TextBox>
+        </StackPanel>
+        
+    </Grid>
 </UserControl>

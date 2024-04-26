@@ -29,6 +29,7 @@ public partial class App : Application
             {
                 //add the DBContext
                 services.AddSingleton<LogisticsDbContext>();
+                services.AddSingleton<UserMessage>();
                 foreach (var type in GetTypes("LogisticsUX.ViewModels",Assembly.GetExecutingAssembly()))
                 {
                     //add each of the viewmodels as a singleton
@@ -85,6 +86,7 @@ public partial class App : Application
             .Where(t => t.Namespace == namespaceName
                         && t.IsClass
                         && !t.IsNested
+                        && !t.IsAbstract
             );
 
         return types;

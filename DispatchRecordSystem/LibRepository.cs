@@ -86,7 +86,7 @@ namespace DispatchRecordSystem;
             }
             catch (InvalidOperationException)
             {
-                throw new ApplicationException($"{typeof(T)} with Id {id} not found");
+                throw new ApplicationException($"{typeof(T).Name} with ID: {id} not found");
             }
         }
 
